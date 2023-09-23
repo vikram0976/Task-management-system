@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h2 class="text-center mb-4">Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+            </div>
+                
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="ml-5">Don't have account? <a href="register.html">Register here</a></p>
+            </div>
+        </form>
+        
+    </div>
+
+</body>
+</html>
+<script >
+    $("#loginForm").submit(function(event) {
+    event.preventDefault();
+
+    var username = $("#username").val();
+    var password = $("#password").val();
+
+    var login = {
+        username: username,
+        password: password
+    };
+
+    $.ajax({
+        url: "http://localhost:8080/api/users/login",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(login),
+        success: function(response) {
+            if (response.message != null) {
+                alert(response.message);
+            } else {
+                localStorage.setItem("user", JSON.stringify(response));
+                window.location.href = "index.html";
+            }
+        },
+        error: function(error) {
+            alert("An error occurred during login");
+            console.error(error);
+        }
+    });
+});
+
+</script>

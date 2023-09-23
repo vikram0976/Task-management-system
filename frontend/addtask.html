@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Create Task</h1>
+
+        <form id="createTaskForm">
+
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" class="form-control" id="dueDate" name="dueDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="completed">Completed:</label>
+                <input type="checkbox" id="completed" name="completed">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            
+        </form>
+    </div>
+
+</body>
+</html>
+
+<script>
+    $("#createTaskForm").submit(function(event) {
+    event.preventDefault();
+
+    var title = $("#title").val();
+    var description = $("#description").val();
+    var dueDate = $("#dueDate").val();
+    var completed = $("#completed").prop("checked");
+
+    var task = {
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        completed: completed
+    };
+
+    var user = JSON.parse(localStorage.getItem("user"));
+    var token = user.uuid;
+
+    $.ajax({
+        url: "http://localhost:8080/api/tasks/" + token,
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(task),
+        success: function(response) {
+            if (response.ok) {
+                alert("Task created successfully");
+                window.location.href = "index.html";
+            } else {
+                alert("Failed to create task");
+            }
+        },
+        error: function(error) {
+            console.error("Error:", error);
+        }
+    });
+});
+
+</script>

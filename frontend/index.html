@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+     <style>
+.navbar {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+#searchButton, #searchButton1 {
+    margin-top: 10px;
+}
+
+     </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Task Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addtask.html">Add Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"  onclick="logout()">LogOut</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="completionStatus">Filter by Completion Status:</label>
+                    <select id="completionStatus" class="form-control">
+                        <option value="all">All</option>
+                        <option value="true">Completed</option>
+                        <option value="false">Not Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dueDate">Filter by Due Date:</label>
+                    <input type="date" id="dueDate" class="form-control">
+                </div>
+            </div>
+        </div>
+    
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="searchTitle" class="form-control" placeholder="Search by Title">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="searchDescription" class="form-control" placeholder="Search by Description">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="mt-5">
+
+        
+
+
+
+    
+        <div id="hidden"  style="visibility: visible;position: absolute;background: wheat;left: 41%;" >
+        </div>
+
+        <h2>Task List</h2>
+
+
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark" style="text-align: center;">
+                <tr>
+                    <th>Task ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>DeadLine</th>
+                   
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>Assign To</th>
+                    <th>Status</th>
+                    <th>Acction</th>
+                </tr>
+            </thead>
+            <tbody id="taskListBody">
+                <!-- data from JS -->
+            </tbody>
+        </table>
+
+    </div>
+
+
+</body>
+</html>
+
+<script src="index.js"></script>
